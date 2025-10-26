@@ -1,89 +1,100 @@
 #include <iostream>
 using namespace std;
 
-void create(int arr[], int &size)
-{
-	cout << "Enter the size of array: ";
-	cin >> size;
-	
-	cout << "Enter the element of array: " << endl;
-	for(int i = 0; i < size; i++)
-	{
-		cin >> arr[i];
-	}
-	
-	cout << endl;
+void createArray(int arr[], int &n) {
+    cout << "Enter number of elements: ";
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cout << "Enter element " << i + 1 << ": ";
+        cin >> arr[i];
+    }
 }
 
-int display(int arr[], int &size)
-{
-	cout << "Array: ";
-	
-	for(int i = 0; i < size; i++)
-	{
-		cout << arr[i] << " ";
-	}
-	
-	cout << endl;
+void displayArray(int arr[], int n) {
+    if (n == 0)
+        cout << "Array is empty." << endl;
+    else {
+        cout << "Array elements: ";
+        for (int i = 0; i < n; i++)
+            cout << arr[i] << " ";
+        cout << endl;
+    }
 }
 
-int binary_search(int arr[], int &size)
-{
-	int target;
-	
-	cout << "Enter the target: ";
-	cin >> target; 
-	
-	int str = 0;
-	int end = size - 1;
-	
-	while(str <= end)
-	{
-		int mid = (str + end) / 2; 
-		
-		if(target > arr[mid])
-		{
-			str = mid + 1;
-		}
-		
-		else if(target < arr[mid])
-		{
-			end = mid - 1;
-		}
-		
-		else
-		{
-			cout << "Target found at: " << mid;
-			return 0;
-		}
-	}
-	cout << "Target not found";
-	return - 1;
-	cout << endl;	
+void insertElement(int arr[], int &n) {
+    int pos, val;
+    cout << "Enter position (0-based index): ";
+    cin >> pos;
+    cout << "Enter value to insert: ";
+    cin >> val;
+
+    if (pos < 0 || pos > n) {
+        cout << "Invalid position." << endl;
+        return;
+    }
+    for (int i = n; i > pos; i--)
+        arr[i] = arr[i - 1];
+    arr[pos] = val;
+    n++;
+    cout << "Element inserted successfully." << endl;
 }
 
-void bubble_sort(int arr[], int &size)
-{
-	for(int i = 0; i < size - 1; i++)
-	{
-		for(int j = 0; j < size - 1; j++)
-		{
-			if(arr[j] > arr[j + 1])
-			{
-				swap(arr[j], arr[j + 1]);
-			}
-		}
-	}
+void deleteElement(int arr[], int &n) {
+    if (n == 0) {
+        cout << "Array is empty." << endl;
+        return;
+    }
+    int pos;
+    cout << "Enter position (0-based index) to delete: ";
+    cin >> pos;
+    if (pos < 0 || pos >= n) {
+        cout << "Invalid position." << endl;
+        return;
+    }
+    for (int i = pos; i < n - 1; i++)
+        arr[i] = arr[i + 1];
+    n--;
+    cout << "Element deleted successfully." << endl;
 }
 
-int main()
-{
-	int arr[100], size;
-	
-	create(arr, size);
-	
-	bubble_sort(arr, size);
-	display(arr, size);
-	binary_search(arr, size);
-	
+void linearSearch(int arr[], int n) {
+    if (n == 0) {
+        cout << "Array is empty." << endl;
+        return;
+    }
+    int key;
+    cout << "Enter element to search: ";
+    cin >> key;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key) {
+            cout << "Element found at position: " << i << endl;
+            return;
+        }
+    }
+    cout << "Element not found." << endl;
+}
+
+int main() {
+    int arr[100], n = 0, choice;
+    while (true) {
+        cout << "\n—— MENU ——" << endl;
+        cout << "1. CREATE" << endl;
+        cout << "2. DISPLAY" << endl;
+        cout << "3. INSERT" << endl;
+        cout << "4. DELETE" << endl;
+        cout << "5. LINEAR SEARCH" << endl;
+        cout << "6. EXIT" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: createArray(arr, n); break;
+            case 2: displayArray(arr, n); break;
+            case 3: insertElement(arr, n); break;
+            case 4: deleteElement(arr, n); break;
+            case 5: linearSearch(arr, n); break;
+            case 6: cout << "Exiting program. Goodbye!" << endl; return 0;
+            default: cout << "Invalid choice. Try again." << endl;
+        }
+    }
 }

@@ -1,45 +1,32 @@
 #include <iostream>
 using namespace std;
 
-void inputArray(int arr[], int size) {
-    cout << "Enter the elements of the array: " << endl;
-    for(int i = 0; i < size; i++) {
-        cin >> arr[i];
-    }
-}
-
-void displayArray(int arr[], int size) {
-    for(int i = 0; i < size; i++) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-}
-
-void reverseArray(int arr[], int size) {
-	cout << "After reverse: " << endl; 
-    int start = 0;
-    int end = size - 1;
-    while(start < end) {
-        swap(arr[start], arr[end]);
-        start++;
-        end--;
+void reverseArray(int arr[], int n) {
+    int i = 0, j = n - 1, temp;
+    while (i < j) {
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+        i++;
+        j--;
     }
 }
 
 int main() {
-    int arr[100], size;
-    cout << "Enter the size of the array: ";
-    cin >> size;
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+    int arr[n];
+    cout << "Enter array elements: ";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
 
-    inputArray(arr, size);
-	
-	cout << "Original array: " << endl;
-    displayArray(arr, size);
-    
-    reverseArray(arr, size);
+    reverseArray(arr, n);
 
-    displayArray(arr, size);
+    cout << "Array after reversing: ";
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+    cout << endl;
 
     return 0;
 }
-

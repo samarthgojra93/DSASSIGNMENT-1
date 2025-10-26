@@ -1,55 +1,50 @@
-#include <iostream>
+	#include <iostream>
+	using namespace std;
 
-using namespace std;
+	int removeDuplicates(int arr[], int n) {
+		if (n == 0 || n == 1)
+			return n;
 
-int main()
-{
-	int arr[100], n;
-	
-	cout << "Enter the size of array: ";
-	cin >> n;
-	
-	cout << "Enter the element of array: \n";
-	for(int i = 0; i < n; i++)
-	{
-		cin >> arr[i];
-	}
-	
-	cout << "Array before deletion: \n";
-	for(int i = 0; i < n; i++)
-	{
-		cout << arr[i] << endl;
-	}
-	
-	bool found = false;
-	
-	for(int i = 0; i < n; i++)
-	{
-		for(int j = i + 1; j < n; j++)
-		{
-			if(arr[i] == arr[j])
-			{
-				for(int k = j; k < n-1; k++)
-				{
-					arr[k] = arr[k + 1];
+		int temp[n];
+		int j = 0;
+
+		// Traverse each element
+		for (int i = 0; i < n; i++) {
+			bool duplicate = false;
+			// Check if arr[i] already exists in temp
+			for (int k = 0; k < j; k++) {
+				if (arr[i] == temp[k]) {
+					duplicate = true;
+					break;
 				}
-				n--;
-				found = true;
 			}
+			if (!duplicate)
+				temp[j++] = arr[i];
 		}
+
+		// Copy back unique elements
+		for (int i = 0; i < j; i++)
+			arr[i] = temp[i];
+
+		return j; // Return new size
 	}
-	
-	if(found = true)
-	{
-		cout << "After deletion: \n";
-		for(int i = 0; i < n ; i++)
-		{
-			cout << arr[i] << endl;
-		}
+
+	int main() {
+		int arr[100], n;
+
+		cout << "Enter number of elements: ";
+		cin >> n;
+
+		cout << "Enter array elements: ";
+		for (int i = 0; i < n; i++)
+			cin >> arr[i];
+
+		n = removeDuplicates(arr, n);
+
+		cout << "Array after removing duplicates: ";
+		for (int i = 0; i < n; i++)
+			cout << arr[i] << " ";
+
+		cout << endl;
+		return 0;
 	}
-	else
-	{
-		cout << "No duplicate value available" << endl;
-	}
-	cout << n;
-}
